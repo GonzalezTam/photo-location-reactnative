@@ -1,16 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useLocalSearchParams } from "expo-router";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Platform,
-  Linking,
-  TouchableOpacity,
-  Share,
-} from "react-native";
+import * as Sharing from "expo-sharing";
+import { View, Text, Image, StyleSheet, Platform, Linking } from "react-native";
 import Button from "@/components/Button";
 import { Photo } from "@/types/PhotoInterface";
 import { RootState } from "@/redux";
@@ -38,11 +30,12 @@ const PhotoScreen = () => {
   });
 
   const sharePhoto = async () => {
+    if (!(await Sharing.isAvailableAsync())) {
+      alert("Compartir no está disponible en esta plataforma");
+      return;
+    }
     try {
-      await Share.share({
-        message: "Compartiendo foto",
-        url: uri,
-      });
+      await Sharing.shareAsync(uri);
     } catch {
       alert("No se pudo compartir la foto");
     }
