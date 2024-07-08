@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   ico: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
     color: "white",
     flex: 1,
