@@ -1,21 +1,15 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import React, { useEffect } from "react";
 import { useFonts } from "expo-font";
+import { Provider } from "react-redux";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { store } from "../redux";
 import "react-native-reanimated";
-
-import { useColorScheme } from "@/hooks/useColorScheme";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -30,11 +24,18 @@ export default function RootLayout() {
     return null;
   }
 
-  return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="index" />
-      </Stack>
-    </ThemeProvider>
-  );
+  return <RootLayoutNav />;
 }
+
+const RootLayoutNav = () => (
+  <Provider store={store}>
+    <Stack>
+      <Stack.Screen
+        name="index"
+        options={{ title: "MIS FOTOS", headerTitleAlign: "center" }}
+      />
+      <Stack.Screen name="PhotoScreen" options={{ headerTitle: "" }} />
+      <Stack.Screen name="CaptureScreen" options={{ headerShown: false }} />
+    </Stack>
+  </Provider>
+);
