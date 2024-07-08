@@ -12,8 +12,13 @@ const photoSlice = createSlice({
     addPhoto: (state, action: PayloadAction<Photo>) => {
       state.photos.push(action.payload);
     },
+    deletePhoto: (state, action: PayloadAction<string>) => {
+      state.photos = state.photos.filter(
+        (photo) => photo.uuid !== action.payload,
+      );
+    },
   },
 });
 
-export const { addPhoto } = photoSlice.actions;
+export const { addPhoto, deletePhoto } = photoSlice.actions;
 export default photoSlice.reducer;

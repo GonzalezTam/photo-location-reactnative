@@ -3,7 +3,7 @@ import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { store } from "../redux";
+import { store } from "@/redux";
 import "react-native-reanimated";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
